@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo - Caique Santos Vilela</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --accent-color: #c0392b;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+            --card-bg: #34495e;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .personal-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--card-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .job-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .skill-category h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--card-bg);
+            border: 2px solid var(--secondary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Download Button */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .download-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Accessibility */
+        .accessibility-notice {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <button class="theme-toggle" id="themeToggle">
+                🌙 Modo Escuro
+            </button>
+            <div class="header-content">
+                <div class="personal-info">
+                    <h1>Caique Santos Vilela</h1>
+                    <p>Assistente Administrativo | Gestão de TI</p>
+                    <div class="contact-info">
+                        <div class="contact-item">📞 (31) 97360-4563</div>
+                        <div class="contact-item">📱 (31) 98700-7325</div>
+                        <div class="contact-item">✉️ caique.s.csv@gmail.com</div>
+                        <div class="contact-item">📍 Belo Horizonte-MG</div>
+                    </div>
+                </div>
+                <a href="#contact" class="download-btn">
+                    📄 Baixar PDF
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link active">Sobre</a></li>
+                <li><a href="#experience" class="nav-link">Experiência</a></li>
+                <li><a href="#education" class="nav-link">Formação</a></li>
+                <li><a href="#skills" class="nav-link">Habilidades</a></li>
+                <li><a href="#contact" class="nav-link">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about" class="visible">
+            <h2 class="section-title">Resumo Profissional</h2>
+            <div class="card">
+                <p>Profissional proativo com experiência consolidada em operações administrativas e logísticas, focado na otimização de processos, excelência no atendimento ao cliente e padronização de atividades. Possuo habilidade em identificar e implementar soluções para melhoria contínua de setores. Atualmente cursando Gestão de Tecnologia da Informação, busco uma oportunidade para aplicar minhas competências organizacionais e analíticas em um ambiente que valorize a inovação e o desenvolvimento tecnológico.</p>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <h2 class="section-title">Experiência Profissional</h2>
+            
+            <div class="card">
+                <h3 class="company">Compacta Gestão Serviços e Participações LTDA</h3>
+                <p class="job-title">Assistente Administrativo</p>
+                <p class="date">Agosto 2023 -- Atualmente | Belo Horizonte, MG</p>
+                <ul class="skill-list">
+                    <li>Atendimento e recepção de clientes, assegurando uma experiência positiva</li>
+                    <li>Organização e padronização de políticas, éticas e atividades internas</li>
+                    <li>Utilização do sistema Webassist SGA para acionamento de prestadores de serviço</li>
+                    <li>Identificação e desenvolvimento de soluções inovadoras para aprimoramento de setores</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 class="company">Drogaria Araujo SA</h3>
+                <p class="job-title">Auxiliar de Logística</p>
+                <p class="date">Março 2021 -- Abril 2023 | Belo Horizonte, MG</p>
+                <ul class="skill-list">
+                    <li>Controle de entrada e saída de mercadorias</li>
+                    <li>Emissão de notas fiscais para expedição dos produtos</li>
+                    <li>Monitoramento e controle das entregas realizadas pela frota</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 class="company">Castro Comércio Eletrônico Varejista Eireli</h3>
+                <p class="job-title">Analista de Logística</p>
+                <p class="date">2018 -- 2019 | Belo Horizonte, MG</p>
+                <ul class="skill-list">
+                    <li>Gerenciamento de inventário e armazenamento estratégico</li>
+                    <li>Coordenação de separação de pedidos, expedição e recebimento</li>
+                    <li>Aplicação de práticas de prevenção de perdas</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2 class="section-title">Formação Acadêmica</h2>
+            <div class="card">
+                <h3 class="job-title">Graduação em Gestão de Tecnologia da Informação</h3>
+                <p class="company">Centro Universitário Una</p>
+                <p class="date">Cursando</p>
+            </div>
+            <div class="card">
+                <h3 class="job-title">Ensino Médio Completo</h3>
+                <p class="date">Concluído em 2013</p>
+            </div>
+            <div class="card">
+                <h3 class="job-title">Bombeiro Civil</h3>
+                <p class="company">FBCATE-MG</p>
+                <p class="date">Concluído em 2015</p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2 class="section-title">Qualificações e Habilidades</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="administrative">Administrativas</div>
+                <div class="tab" data-tab="systems">Sistemas</div>
+                <div class="tab" data-tab="logistics">Logística</div>
+            </div>
+
+            <div class="tab-content active" id="administrative-tab">
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Habilidades Administrativas</h4>
+                        <ul class="skill-list">
+                            <li>Atendimento ao Cliente</li>
+                            <li>Organização de Processos</li>
+                            <li>Padronização de Atividades</li>
+                            <li>Resolução de Problemas</li>
+                            <li>Otimização de Setores</li>
+                            <li>Rotinas de Escritório</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="systems-tab">
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Sistemas e Tecnologias</h4>
+                        <ul class="skill-list">
+                            <li>Webassist SGA</li>
+                            <li>Pacote Office (Básico)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="logistics-tab">
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Habilidades em Logística</h4>
+                        <ul class="skill-list">
+                            <li>Controle de Inventário</li>
+                            <li>Expedição e Recebimento</li>
+                            <li>Prevenção de Perdas</li>
+                            <li>Armazenamento Estratégico</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="section-title">Contato</h2>
+            <div class="card">
+                <div class="contact-info">
+                    <div class="contact-item">📞 (31) 97360-4563</div>
+                    <div class="contact-item">📱 (31) 98700-7325</div>
+                    <div class="contact-item">✉️ caique.s.csv@gmail.com</div>
+                    <div class="contact-item">📍 Belo Horizonte-MG</div>
+                </div>
+                <a href="#" class="download-btn" onclick="generatePDF()">
+                    📄 Baixar Versão PDF
+                </a>
+            </div>
+
+            <div class="accessibility-notice">
+                <h4>💡 Informação de Acessibilidade</h4>
+                <p>Portador de Deficiência Auditiva Unilateral (CID H90.4).</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Caique Santos Vilela. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggle.textContent = document.body.classList.contains('dark-mode') 
+                ? '☀️ Modo Claro' 
+                : '🌙 Modo Escuro';
+        });
+
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                
+                // Update active nav link
+                navLinks.forEach(nl => nl.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Scroll to section
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll Spy
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Update active nav link
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Tabs
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabId}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // PDF Generation (placeholder)
+        function generatePDF() {
+            alert('Funcionalidade de download de PDF será implementada!');
+            // Aqui você pode integrar com uma biblioteca como jsPDF
+            // ou simplesmente linkar para um PDF estático
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
