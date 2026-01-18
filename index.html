@@ -1,600 +1,563 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículo - Caique Santos Vilela</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --text-color: #333;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caique Santos Vilela | Perfil Profissional</title>
+  <style>
+    :root {
+      --bg-color: #05060a;
+      --bg-alt: #0b0d16;
+      --primary: #4f8cff;
+      --primary-soft: rgba(79,140,255,0.16);
+      --accent: #35cba0;
+      --text: #e4e7f5;
+      --muted: #9aa0c2;
+      --border: #1a1d2b;
+      --card-radius: 14px;
+      --shadow: 0 18px 45px rgba(0,0,0,0.6);
+      --transition: 0.25s ease;
+    }
 
-        .dark-mode {
-            --primary-color: #34495e;
-            --secondary-color: #2980b9;
-            --accent-color: #c0392b;
-            --text-color: #ecf0f1;
-            --bg-color: #2c3e50;
-            --card-bg: #34495e;
-            --shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: radial-gradient(circle at top, #151b30 0, #05060a 55%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            transition: var(--transition);
-        }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
 
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 3rem 0;
-            position: relative;
-        }
+    /* HEADER / HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr);
+      gap: 28px;
+      padding: 28px 24px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, #202748 0, #05060a 55%);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      background:
+        radial-gradient(circle at 0 0, rgba(79,140,255,0.16), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(53,203,160,0.16), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
 
-        .personal-info h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+    .hero-main,
+    .hero-side {
+      position: relative;
+      z-index: 1;
+    }
 
-        .contact-info {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
+    .headline {
+      font-size: 2.2rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .headline span {
+      color: var(--accent);
+    }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
+    .subtitle {
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
 
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.3);
-        }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
 
-        /* Navigation */
-        nav {
-            background: var(--card-bg);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
-        }
+    .chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(5,6,10,0.7);
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
 
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 2rem;
-        }
+    .summary {
+      font-size: 0.95rem;
+      color: #d7dbff;
+      max-width: 620px;
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: var(--transition);
-        }
+    .summary strong {
+      color: #ffffff;
+    }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: var(--secondary-color);
-            color: white;
-        }
+    .hero-actions {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        /* Main Content */
-        main {
-            padding: 3rem 0;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition),
+        background var(--transition), border-color var(--transition);
+    }
 
-        section {
-            margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, #4f8cff, #35cba0);
+      color: #05060a;
+      font-weight: 600;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.5);
+    }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.7);
+    }
 
-        .section-title {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--secondary-color);
-            display: inline-block;
-        }
+    .btn-ghost {
+      background: rgba(5,6,10,0.7);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.08);
+    }
 
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary-color);
-        }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-1px);
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        }
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 14px 14px 8px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(5,6,10,0.85), rgba(9,11,20,0.98));
+      border: 1px solid rgba(255,255,255,0.06);
+    }
 
-        .job-title {
-            color: var(--secondary-color);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+    .tagline {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
 
-        .company {
-            color: var(--primary-color);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
 
-        .date {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
+    .metric-label {
+      color: var(--muted);
+    }
 
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
+    .metric-value {
+      font-weight: 600;
+      color: var(--accent);
+    }
 
-        .skill-category {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
 
-        .skill-category h4 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-        }
+    .badge {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 0.75rem;
+    }
 
-        .skill-list {
-            list-style: none;
-        }
+    /* SECTIONS */
+    .sections {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
+      gap: 22px;
+    }
 
-        .skill-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
+    .card {
+      background: linear-gradient(145deg, #0b0d16, #05060a);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .skill-list li:last-child {
-            border-bottom: none;
-        }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background: radial-gradient(circle at top right, rgba(79,140,255,0.08), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
 
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
 
-        .tab {
-            padding: 0.75rem 1.5rem;
-            background: var(--card-bg);
-            border: 2px solid var(--secondary-color);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-        .tab.active {
-            background: var(--secondary-color);
-            color: white;
-        }
+    .card-pill {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
 
-        .tab-content {
-            display: none;
-        }
+    .card-body {
+      position: relative;
+      z-index: 1;
+      font-size: 0.9rem;
+      color: #d8ddff;
+    }
 
-        .tab-content.active {
-            display: block;
-        }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-        /* Download Button */
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--accent-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: var(--transition);
-            margin-top: 1rem;
-        }
+    .timeline-item {
+      padding: 10px 10px 9px;
+      border-radius: 10px;
+      background: rgba(5,6,10,0.85);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
 
-        .download-btn:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
+    .timeline-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
 
-        /* Accessibility */
-        .accessibility-notice {
-            background: var(--card-bg);
-            padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-color);
-            margin-top: 2rem;
-        }
+    .timeline-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 2px 0 4px;
+    }
 
-        /* Footer */
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
+    .timeline-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
+    .timeline-list {
+      list-style: none;
+      padding-left: 0;
+    }
 
-            .contact-info {
-                justify-content: center;
-            }
+    .timeline-list li {
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 3px;
+    }
 
-            .nav-links {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
+    .timeline-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      font-size: 0.75rem;
+    }
 
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(5,6,10,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 14px;
+    }
+
+    .skill-group-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .skill-list {
+      list-style: none;
+      font-size: 0.85rem;
+      color: #d8ddff;
+    }
+
+    .skill-list li {
+      margin-bottom: 3px;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .sections {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <button class="theme-toggle" id="themeToggle">
-                🌙 Modo Escuro
-            </button>
-            <div class="header-content">
-                <div class="personal-info">
-                    <h1>Caique Santos Vilela</h1>
-                    <p>Assistente Administrativo | Gestão de TI</p>
-                    <div class="contact-info">
-                        <div class="contact-item">📞 (31) 97360-4563</div>
-                        <div class="contact-item">📱 (31) 98700-7325</div>
-                        <div class="contact-item">✉️ caique.s.csv@gmail.com</div>
-                        <div class="contact-item">📍 Belo Horizonte-MG</div>
-                    </div>
-                </div>
-                <a href="#contact" class="download-btn">
-                    📄 Baixar PDF
-                </a>
-            </div>
-        </div>
-    </header>
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-main">
+        <h1 class="headline">Caique Santos <span>Vilela</span></h1>
+        <p class="subtitle">
+          Assistente Administrativo | Operações Logísticas | Gestão de TI em formação
+        </p>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <ul class="nav-links">
-                <li><a href="#about" class="nav-link active">Sobre</a></li>
-                <li><a href="#experience" class="nav-link">Experiência</a></li>
-                <li><a href="#education" class="nav-link">Formação</a></li>
-                <li><a href="#skills" class="nav-link">Habilidades</a></li>
-                <li><a href="#contact" class="nav-link">Contato</a></li>
+        <div class="chips">
+          <span class="chip">Otimização de Processos</span>
+          <span class="chip">Experiência em SAP, Webassist, SGA</span>
+          <span class="chip">Foco em Melhoria Contínua</span>
+          <span class="chip">Belo Horizonte · MG</span>
+        </div>
+
+        <p class="summary">
+          Profissional com trajetória sólida em operações administrativas e logísticas,
+          com <strong>visão analítica e orientação a dados</strong> para desenhar processos
+          mais eficientes, padronizar rotinas e elevar a experiência do cliente. Integrando
+          a prática operacional com a formação em Gestão de Tecnologia da Informação,
+          atua conectando negócios, pessoas e tecnologia para gerar impacto mensurável
+          em produtividade, qualidade e serviço.
+        </p>
+
+        <div class="hero-actions">
+          <a href="mailto:caique.s.csv@gmail.com" class="btn btn-primary">
+            Entrar em contato
+          </a>
+          <a href="#experiencia" class="btn btn-ghost">
+            Ver experiência em detalhes
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <span class="tagline">Perfil Integrado · Bem-estar e Performance</span>
+
+        <div class="metric-row">
+          <span class="metric-label">Engajamento em atividades</span>
+          <span class="metric-value">73%</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Conexão Social & Saúde Física</span>
+          <span class="metric-value">80%</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Regulação Emocional, Propósito e Realização</span>
+          <span class="metric-value">60%+</span>
+        </div>
+
+        <div class="badges">
+          <span class="badge">Índice de Felicidade Discente equilibrado</span>
+          <span class="badge">Foco em autocuidado e relações saudáveis</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SEÇÕES PRINCIPAIS -->
+    <section class="sections">
+      <!-- EXPERIÊNCIA & LIDERANÇA TÉCNICA -->
+      <section class="card" id="experiencia">
+        <header class="card-header">
+          <h2 class="card-title">Experiência & Liderança Técnica</h2>
+          <span class="card-pill">Administração · Logística · TI</span>
+        </header>
+        <div class="card-body">
+          <p style="margin-bottom:10px;">
+            Atua como referência técnica em operações, conectando o chão de fábrica
+            às decisões de gestão. Lidera pelo exemplo, estruturando rotinas,
+            suportando times em sistemas e disseminando boas práticas de processo.
+          </p>
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <h3 class="timeline-title">Assistente Administrativo</h3>
+              <p class="timeline-sub">Compacta Gestão Serviços e Participações LTDA · Belo Horizonte, MG</p>
+              <p class="timeline-meta">ago/2023 — atual</p>
+              <ul class="timeline-list">
+                <li>Atendimento e recepção de clientes, garantindo experiência positiva e alinhamento à cultura da empresa.</li>
+                <li>Organização e padronização de políticas, rotinas e atividades internas para ganho de eficiência.</li>
+                <li>Uso de Webassist/SGA para acionar prestadores, monitorar rotas e acompanhar a qualidade dos atendimentos.</li>
+                <li>Criação de ferramentas e soluções internas voltadas à melhoria contínua de diferentes setores.</li>
+              </ul>
+            </article>
+
+            <article class="timeline-item">
+              <h3 class="timeline-title">Auxiliar de Logística</h3>
+              <p class="timeline-sub">Drogaria Araujo SA · Belo Horizonte, MG</p>
+              <p class="timeline-meta">mar/2021 — abr/2023</p>
+              <ul class="timeline-list">
+                <li>Controle de entrada e saída de mercadorias e acurácia de estoque.</li>
+                <li>Emissão de notas fiscais para expedição via SAP.</li>
+                <li>Monitoramento da frota e cumprimento de prazos de entrega.</li>
+              </ul>
+            </article>
+
+            <article class="timeline-item">
+              <h3 class="timeline-title">Analista de Logística</h3>
+              <p class="timeline-sub">Castro Comércio Eletrônico Varejista Eireli · Belo Horizonte, MG</p>
+              <p class="timeline-meta">2018 — 2019</p>
+              <ul class="timeline-list">
+                <li>Gestão de inventário, conferência e armazenamento estratégico de produtos.</li>
+                <li>Coordenação de separação de pedidos, expedição e recebimento.</li>
+                <li>Prevenção de perdas e alinhamento com fornecedores.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMAÇÃO, CERTIFICAÇÕES & SKILLS -->
+      <section class="card">
+        <header class="card-header">
+          <h2 class="card-title">Formação & Competências</h2>
+          <span class="card-pill">Desenvolvimento Contínuo</span>
+        </header>
+        <div class="card-body">
+          <div style="margin-bottom:14px;">
+            <p class="skill-group-title">Formação Acadêmica</p>
+            <ul class="skill-list">
+              <li><strong>Graduação em Gestão de Tecnologia da Informação</strong> · Centro Universitário Una · cursando</li>
+              <li>Ensino Médio Completo · 2013</li>
             </ul>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <p class="skill-group-title">Cursos e Certificações Recentes</p>
+            <ul class="skill-list">
+              <li>Análise de dados como suporte à tomada de decisão.</li>
+              <li>Fundamentos da transformação digital, mapeamento e automação de processos.</li>
+              <li>Soluções preditivas baseadas em dados com R e Python.</li>
+              <li>Inovando na gestão de projetos.</li>
+              <li>Bombeiro Civil · FBCATE-MG.</li>
+            </ul>
+          </div>
+
+          <div class="grid-2" style="margin-bottom:10px;">
+            <div>
+              <p class="skill-group-title">Habilidades Técnicas</p>
+              <ul class="skill-list">
+                <li>Webassist, SGA, SAP.</li>
+                <li>Pacote Office, CorelDRAW.</li>
+                <li>Python e SQL (Oracle) em evolução.</li>
+                <li>Controle de estoque, inventário e expedição.</li>
+                <li>Mapeamento e padronização de processos.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="skill-group-title">Soft Skills</p>
+              <ul class="skill-list">
+                <li>Liderança técnica e suporte a equipes operacionais.</li>
+                <li>Visão sistêmica e foco em melhoria contínua.</li>
+                <li>Comunicação clara e empatia no atendimento.</li>
+                <li>Engajamento, resiliência e equilíbrio emocional.</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="skill-group-title">Como posso contribuir</p>
+          <p>
+            Ajudando sua empresa a transformar rotinas administrativas e logísticas
+            em processos estruturados, medidos e mais eficientes; apoiando a adoção
+            de tecnologia no dia a dia das equipes; e construindo soluções simples,
+            mas de alto impacto em operação, serviço e resultados.
+          </p>
         </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container">
-        <!-- About Section -->
-        <section id="about" class="visible">
-            <h2 class="section-title">Resumo Profissional</h2>
-            <div class="card">
-                <p>Profissional proativo com experiência consolidada em operações administrativas e logísticas, focado na otimização de processos, excelência no atendimento ao cliente e padronização de atividades. Possuo habilidade em identificar e implementar soluções para melhoria contínua de setores. Atualmente cursando Gestão de Tecnologia da Informação, busco uma oportunidade para aplicar minhas competências organizacionais e analíticas em um ambiente que valorize a inovação e o desenvolvimento tecnológico.</p>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience">
-            <h2 class="section-title">Experiência Profissional</h2>
-            
-            <div class="card">
-                <h3 class="company">Compacta Gestão Serviços e Participações LTDA</h3>
-                <p class="job-title">Assistente Administrativo</p>
-                <p class="date">Agosto 2023 -- Atualmente | Belo Horizonte, MG</p>
-                <ul class="skill-list">
-                    <li>Atendimento e recepção de clientes, assegurando uma experiência positiva</li>
-                    <li>Organização e padronização de políticas, éticas e atividades internas</li>
-                    <li>Utilização do sistema Webassist SGA para acionamento de prestadores de serviço</li>
-                    <li>Identificação e desenvolvimento de soluções inovadoras para aprimoramento de setores</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3 class="company">Drogaria Araujo SA</h3>
-                <p class="job-title">Auxiliar de Logística</p>
-                <p class="date">Março 2021 -- Abril 2023 | Belo Horizonte, MG</p>
-                <ul class="skill-list">
-                    <li>Controle de entrada e saída de mercadorias</li>
-                    <li>Emissão de notas fiscais para expedição dos produtos</li>
-                    <li>Monitoramento e controle das entregas realizadas pela frota</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3 class="company">Castro Comércio Eletrônico Varejista Eireli</h3>
-                <p class="job-title">Analista de Logística</p>
-                <p class="date">2018 -- 2019 | Belo Horizonte, MG</p>
-                <ul class="skill-list">
-                    <li>Gerenciamento de inventário e armazenamento estratégico</li>
-                    <li>Coordenação de separação de pedidos, expedição e recebimento</li>
-                    <li>Aplicação de práticas de prevenção de perdas</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education">
-            <h2 class="section-title">Formação Acadêmica</h2>
-            <div class="card">
-                <h3 class="job-title">Graduação em Gestão de Tecnologia da Informação</h3>
-                <p class="company">Centro Universitário Una</p>
-                <p class="date">Cursando</p>
-            </div>
-            <div class="card">
-                <h3 class="job-title">Ensino Médio Completo</h3>
-                <p class="date">Concluído em 2013</p>
-            </div>
-            <div class="card">
-                <h3 class="job-title">Bombeiro Civil</h3>
-                <p class="company">FBCATE-MG</p>
-                <p class="date">Concluído em 2015</p>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills">
-            <h2 class="section-title">Qualificações e Habilidades</h2>
-            
-            <div class="tabs">
-                <div class="tab active" data-tab="administrative">Administrativas</div>
-                <div class="tab" data-tab="systems">Sistemas</div>
-                <div class="tab" data-tab="logistics">Logística</div>
-            </div>
-
-            <div class="tab-content active" id="administrative-tab">
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4>Habilidades Administrativas</h4>
-                        <ul class="skill-list">
-                            <li>Atendimento ao Cliente</li>
-                            <li>Organização de Processos</li>
-                            <li>Padronização de Atividades</li>
-                            <li>Resolução de Problemas</li>
-                            <li>Otimização de Setores</li>
-                            <li>Rotinas de Escritório</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="systems-tab">
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4>Sistemas e Tecnologias</h4>
-                        <ul class="skill-list">
-                            <li>Webassist SGA</li>
-                            <li>Pacote Office (Básico)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="logistics-tab">
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4>Habilidades em Logística</h4>
-                        <ul class="skill-list">
-                            <li>Controle de Inventário</li>
-                            <li>Expedição e Recebimento</li>
-                            <li>Prevenção de Perdas</li>
-                            <li>Armazenamento Estratégico</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2 class="section-title">Contato</h2>
-            <div class="card">
-                <div class="contact-info">
-                    <div class="contact-item">📞 (31) 97360-4563</div>
-                    <div class="contact-item">📱 (31) 98700-7325</div>
-                    <div class="contact-item">✉️ caique.s.csv@gmail.com</div>
-                    <div class="contact-item">📍 Belo Horizonte-MG</div>
-                </div>
-                <a href="#" class="download-btn" onclick="generatePDF()">
-                    📄 Baixar Versão PDF
-                </a>
-            </div>
-
-            <div class="accessibility-notice">
-                <h4>💡 Informação de Acessibilidade</h4>
-                <p>Portador de Deficiência Auditiva Unilateral (CID H90.4).</p>
-            </div>
-        </section>
-    </main>
+      </section>
+    </section>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Caique Santos Vilela. Todos os direitos reservados.</p>
-        </div>
+      <span>Portador de deficiência auditiva unilateral · CID H90.4</span>
+      <span>&copy; 2026 · Caique Santos Vilela</span>
     </footer>
-
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            themeToggle.textContent = document.body.classList.contains('dark-mode') 
-                ? '☀️ Modo Claro' 
-                : '🌙 Modo Escuro';
-        });
-
-        // Navigation
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                
-                // Update active nav link
-                navLinks.forEach(nl => nl.classList.remove('active'));
-                link.classList.add('active');
-                
-                // Scroll to section
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Scroll Spy
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.3
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Update active nav link
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Tabs
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabId = tab.getAttribute('data-tab');
-                
-                // Update active tab
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                // Show corresponding content
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                    if (content.id === `${tabId}-tab`) {
-                        content.classList.add('active');
-                    }
-                });
-            });
-        });
-
-        // PDF Generation (placeholder)
-        function generatePDF() {
-            alert('Funcionalidade de download de PDF será implementada!');
-            // Aqui você pode integrar com uma biblioteca como jsPDF
-            // ou simplesmente linkar para um PDF estático
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+  </main>
 </body>
 </html>
