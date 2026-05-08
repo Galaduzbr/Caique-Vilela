@@ -1,428 +1,586 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caique Santos Vilela - Currículo Profissional</title>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --primary-color:#21808d;
-            --primary-dark:#1d747f;
-            --primary-light:#32a8b5;
-            --text-dark:#134252;
-            --text-light:#626c71;
-            --bg-light:#fcfcf9;
-            --bg-white:#fffff9;
-            --border-color:rgba(94,82,64,.2);
-            --card-shadow:0 4px 6px rgba(0,0,0,.04);
-            --card-shadow-hover:0 10px 15px rgba(0,0,0,.08)
-        }
-        @media(prefers-color-scheme:dark){
-            :root{
-                --primary-color:#32b8c6;
-                --primary-dark:#2da6b2;
-                --primary-light:#50c4d0;
-                --text-dark:#f5f5f5;
-                --text-light:rgba(167,169,169,.9);
-                --bg-light:#1f2121;
-                --bg-white:#262828;
-                --border-color:rgba(119,124,124,.3)
-            }
-        }
-        body{
-            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;
-            line-height:1.6;
-            color:var(--text-dark);
-            background:var(--bg-light);
-            overflow-x:hidden;
-            padding:16px
-        }
-        .page{
-            max-width:1000px;
-            margin:0 auto;
-            background:var(--bg-white);
-            border-radius:14px;
-            box-shadow:var(--card-shadow);
-            border:1px solid var(--border-color);
-            overflow:hidden
-        }
-        header{
-            padding:24px 32px 18px;
-            background:linear-gradient(135deg,var(--primary-color),var(--primary-dark));
-            color:#fff;
-            display:flex;
-            flex-wrap:wrap;
-            gap:20px;
-            align-items:flex-start
-        }
-        .main-id{
-            flex:2
-        }
-        h1{
-            font-size:2.2rem;
-            letter-spacing:-.03em;
-            margin-bottom:4px
-        }
-        .role{
-            font-size:1.1rem;
-            opacity:.95;
-            margin-bottom:10px
-        }
-        .summary{
-            font-size:.98rem;
-            max-width:620px;
-            opacity:.96
-        }
-        .summary strong{font-weight:600}
-        .contacts{
-            flex:1;
-            min-width:220px;
-            font-size:.9rem
-        }
-        .contacts a{
-            color:#fff;
-            text-decoration:none
-        }
-        .contacts div{
-            margin-bottom:4px
-        }
-        .badge-row{
-            margin-top:10px;
-            display:flex;
-            flex-wrap:wrap;
-            gap:6px
-        }
-        .badge{
-            background:rgba(255,255,255,.16);
-            padding:4px 10px;
-            border-radius:999px;
-            font-size:.78rem;
-            white-space:nowrap
-        }
-        main{
-            padding:18px 26px 24px;
-            display:grid;
-            grid-template-columns:2fr 1.2fr;
-            gap:18px
-        }
-        h2{
-            font-size:1.05rem;
-            text-transform:uppercase;
-            letter-spacing:.08em;
-            color:var(--primary-dark);
-            margin-bottom:6px
-        }
-        .section{
-            margin-bottom:12px
-        }
-        .line{
-            height:1px;
-            background:var(--border-color);
-            margin-bottom:10px
-        }
-        .exp-item{margin-bottom:10px}
-        .exp-title{
-            font-weight:600;
-            font-size:.98rem;
-            color:var(--text-dark)
-        }
-        .exp-meta{
-            font-size:.8rem;
-            color:var(--text-light)
-        }
-        .exp-meta span+span::before{
-            content:" • ";
-            margin:0 3px
-        }
-        .exp-company{
-            font-size:.9rem;
-            color:var(--primary-color);
-            margin-bottom:2px
-        }
-        .exp-list{
-            margin-left:14px;
-            margin-top:4px;
-            font-size:.88rem;
-            color:var(--text-light)
-        }
-        .exp-list li{margin-bottom:3px}
-        .pill-row{
-            display:flex;
-            flex-wrap:wrap;
-            gap:6px;
-            font-size:.78rem
-        }
-        .pill{
-            border-radius:999px;
-            border:1px solid var(--border-color);
-            padding:3px 9px;
-            background:rgba(33,128,141,.03)
-        }
-        .subheading{
-            font-size:.9rem;
-            font-weight:600;
-            color:var(--text-dark);
-            margin-top:4px
-        }
-        .cert{
-            font-size:.84rem;
-            margin-bottom:6px
-        }
-        .cert span{
-            display:block
-        }
-        .cert .meta{
-            color:var(--text-light);
-            font-size:.78rem
-        }
-        .stat-grid{
-            display:grid;
-            grid-template-columns:repeat(2,minmax(0,1fr));
-            gap:8px;
-            margin-top:4px
-        }
-        .stat{
-            border-radius:10px;
-            padding:8px 10px;
-            background:linear-gradient(135deg,var(--primary-light),var(--primary-dark));
-            color:#fff;
-            text-align:center;
-            font-size:.78rem
-        }
-        .stat strong{
-            display:block;
-            font-size:1.25rem;
-            line-height:1.2
-        }
-        .info-block{
-            font-size:.84rem;
-            padding:7px 9px;
-            border-radius:8px;
-            background:rgba(33,128,141,.05);
-            margin-bottom:6px
-        }
-        .info-block strong{display:block;font-size:.86rem}
-        ul{list-style:disc}
-        @media(max-width:800px){
-            main{grid-template-columns:1fr}
-        }
-        @media print{
-            body{background:#fff;padding:0}
-            .page{border:none;box-shadow:none;border-radius:0}
-            header{border-bottom:1px solid var(--border-color)}
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>CAIQUE SANTOS VILELA - Currículo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --tag: #111827;
+      --tag-border: #1f2937;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.85);
+      --shadow-card: 0 14px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d283a 0, #020617 45%, #000 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 16px 48px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        order: -1;
+      }
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .identity {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .name {
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+    }
+
+    .contact {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 55%) border-box,
+                  linear-gradient(to bottom right, rgba(148,163,184,0.2), rgba(15,23,42,0.9)) border-box;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.35);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.08), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      border-radius: var(--radius-full);
+      padding: 3px 9px 3px 6px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--muted);
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .card-body {
+      font-size: 0.86rem;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 0.74rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--tag-border);
+      background: var(--tag);
+      color: var(--muted);
+    }
+
+    .section {
+      margin-top: 10px;
+    }
+
+    .section + .section {
+      margin-top: 12px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .job {
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(51,65,85,0.85);
+      box-shadow: 0 8px 22px rgba(15,23,42,0.8);
+    }
+
+    .job-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .job-role {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .job-company {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .job-meta {
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .job ul {
+      margin: 4px 0 0;
+      padding-left: 18px;
+    }
+
+    .job li {
+      margin: 2px 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-skill {
+      font-size: 0.74rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(55,65,81,0.9);
+      color: var(--muted);
+    }
+
+    .cert-list {
+      list-style: none;
+      margin: 4px 0 0;
+      padding: 0;
+      font-size: 0.8rem;
+    }
+
+    .cert-list li {
+      margin: 3px 0;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<div class="page">
-    <header>
-        <div class="main-id">
-            <h1>Caique Santos Vilela</h1>
-            <div class="role">Gestão de TI • Operações & Transformação Digital • Python & Dados</div>
-            <p class="summary">
-                Profissional com <strong>7+ anos em operações administrativas e logísticas</strong>, usando tecnologia como alavanca para resolver problemas reais,
-                otimizar processos e apoiar decisões em ambientes de alta demanda.
-            </p>
-            <div class="badge-row">
-                <span class="badge">Gestão de TI (cursando)</span>
-                <span class="badge">Python • R • SQL</span>
-                <span class="badge">SAP • Webassist • SGA</span>
-                <span class="badge">Transformação Digital</span>
-                <span class="badge">Governança de TIC (93,75)</span>
-            </div>
+  <div class="page">
+    <header class="top-bar">
+      <div class="identity">
+        <div class="name">CAIQUE SANTOS VILELA</div>
+        <div class="title">Gestão de Tecnologia da Informação · Logística & Administrativo</div>
+        <div class="pill-row">
+          <span class="pill">
+            <span class="pill-dot"></span>
+             Belo Horizonte · MG · Brasil
+          </span>
+          <span class="pill">Mais de 4 anos em logística e operações</span>
+          <span class="pill">Em transição estratégica para TI & Dados</span>
         </div>
-        <div class="contacts">
-            <div><strong>Telefone:</strong> <a href="tel:+5531973604563">(31) 97360-4563</a></div>
-            <div><strong>E-mail:</strong> <a href="mailto:caique.s.csv@gmail.com">caique.s.csv@gmail.com</a></div>
-            <div><strong>Localização:</strong> Santa Luzia / Belo Horizonte, MG</div>
-            <div><strong>LinkedIn / GitHub:</strong> disponíveis sob demanda</div>
-        </div>
+      </div>
+      <div class="contact">
+        <div><strong>E-mail:</strong> seuemail@exemplo.com</div>
+        <div><strong>Telefone:</strong> (31) 9 0000‑0000</div>
+        <div><strong>LinkedIn:</strong> <a href="#" target="_blank">linkedin.com/in/seu-perfil</a></div>
+      </div>
     </header>
 
-    <main>
-        <section>
-            <div class="section">
-                <h2>Resumo profissional</h2>
-                <div class="line"></div>
-                <p style="font-size:.9rem;color:var(--text-light);margin-bottom:4px;">
-                    Trajetória sólida em logística e área administrativa, atuando com controle de estoque, gestão de frota, padronização de processos e qualidade
-                    operacional. Em transição estratégica para <strong>Gestão de Tecnologia da Informação</strong>, conectando experiência de campo a dados, automação e nuvem.
-                </p>
-                <p style="font-size:.9rem;color:var(--text-light);">
-                    Curso de especialização e certificações recentes em transformação digital, governança de TIC, soluções preditivas com R/Python e análise de dados para
-                    suporte à decisão, focando em impacto mensurável e melhoria contínua.
-                </p>
+    <div class="layout">
+      <!-- COLUNA PRINCIPAL -->
+      <main>
+        <section class="card">
+          <div class="card-header">
+            <div class="card-title">Resumo profissional</div>
+            <span class="chip"><span class="chip-dot"></span> Perfil</span>
+          </div>
+          <div class="card-body">
+            <p>
+              Profissional com trajetória sólida em logística, estoque e área administrativa, atuando com controle de inventário,
+              expedição, atendimento e padronização de processos. Em transição estratégica para Gestão de Tecnologia da
+              Informação, conectando experiência prática de operação com dados, automação e melhoria contínua.
+            </p>
+            <p class="muted">
+              Vivência em ambientes de alta demanda, lidando com múltiplos gestores, clientes em situação de estresse e
+              necessidade de decisões rápidas. Focado em organizar processos, documentar rotinas e usar tecnologia para reduzir
+              erros, retrabalho e atrasos.
+            </p>
+            <div class="tag-row">
+              <span class="tag">Logística & Estoque</span>
+              <span class="tag">Atendimento & Assistência Veicular</span>
+              <span class="tag">Gestão de Processos</span>
+              <span class="tag">Transformação Digital</span>
+              <span class="tag">Análise de Dados</span>
             </div>
-
-            <div class="section">
-                <h2>Experiência</h2>
-                <div class="line"></div>
-
-                <div class="exp-item">
-                    <div class="exp-title">Assistente Administrativo</div>
-                    <div class="exp-company">Compacta Gestão Serviços e Participações LTDA</div>
-                    <div class="exp-meta">
-                        <span>Ago/2023 – Nov/2025</span><span>Belo Horizonte, MG</span>
-                    </div>
-                    <ul class="exp-list">
-                        <li>Desenvolvimento de ferramentas de controle e automação para monitoramento de rotas, aumento de eficiência e redução de retrabalho.</li>
-                        <li>Uso de Webassist e SGA para otimizar acionamento de prestadores e qualidade de atendimento ao cliente.</li>
-                        <li>Referência técnica em sistemas, apoiando equipes na padronização de rotinas e boas práticas.</li>
-                    </ul>
-                </div>
-
-                <div class="exp-item">
-                    <div class="exp-title">Auxiliar de Logística</div>
-                    <div class="exp-company">Drogaria Araujo S.A.</div>
-                    <div class="exp-meta">
-                        <span>Mar/2021 – Abr/2023</span><span>Belo Horizonte, MG</span>
-                    </div>
-                    <ul class="exp-list">
-                        <li>Controle de entrada e saída de mercadorias, garantindo acurácia de estoque e conformidade com padrões internos.</li>
-                        <li>Emissão de NF-e e apoio à operação via SAP, contribuindo para fluidez da expedição.</li>
-                        <li>Monitoramento de entregas e suporte à gestão de frota, com foco em prazos e qualidade de serviço.</li>
-                    </ul>
-                </div>
-
-                <div class="exp-item" style="margin-bottom:0;">
-                    <div class="exp-title">Analista de Logística</div>
-                    <div class="exp-company">Castro Comércio Eletrônico Varejista Eireli</div>
-                    <div class="exp-meta">
-                        <span>2018 – 2019</span><span>Belo Horizonte, MG</span>
-                    </div>
-                    <ul class="exp-list">
-                        <li>Gestão de inventário, reposição e armazenamento, integrando conferência física e sistêmica.</li>
-                        <li>Coordenação de separação de pedidos, recebimento e expedição com foco em produtividade.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Competências técnicas</h2>
-                <div class="line"></div>
-                <div class="subheading">Tecnologia e dados</div>
-                <div class="pill-row" style="margin-bottom:6px;">
-                    <span class="pill">Python (pandas, modelos preditivos)</span>
-                    <span class="pill">R (estatística e visualização)</span>
-                    <span class="pill">SQL (consultas e modelagem)</span>
-                    <span class="pill">Power BI / Excel avançado</span>
-                </div>
-                <div class="subheading">Sistemas e plataformas</div>
-                <div class="pill-row" style="margin-bottom:6px;">
-                    <span class="pill">SAP • Webassist • SGA</span>
-                    <span class="pill">Azure (IA & segurança em nuvem)</span>
-                    <span class="pill">Microsoft Dynamics</span>
-                    <span class="pill">SQL Server • Oracle • SQLite</span>
-                </div>
-                <div class="subheading">Gestão e processos</div>
-                <div class="pill-row">
-                    <span class="pill">Transformação digital & automação</span>
-                    <span class="pill">Governança de TIC e riscos</span>
-                    <span class="pill">Gestão de projetos (ágeis)</span>
-                    <span class="pill">Mapeamento de processos</span>
-                </div>
-            </div>
+          </div>
         </section>
 
-        <aside>
-            <div class="section">
-                <h2>Formação</h2>
-                <div class="line"></div>
-                <div class="cert">
-                    <span><strong>Gestão de Tecnologia da Informação</strong></span>
-                    <span class="meta">Centro Universitário Una • Cursando</span>
-                    <span class="meta">Ênfase em dados, automação e governança de TI</span>
+        <section class="card">
+          <div class="card-header">
+            <div class="card-title">Objetivo</div>
+            <span class="chip"><span class="chip-dot"></span> Próximo passo</span>
+          </div>
+          <div class="card-body">
+            <p>
+              Atuar em posições de Assistente Administrativo, Assistente de Logística ou Analista de Operações, em organização
+              que valorize melhoria contínua, ambiente saudável e uso estratégico de tecnologia, com perspectiva de crescimento
+              para áreas de Gestão de TI, dados e automação de processos.
+            </p>
+          </div>
+        </section>
+
+        <section class="card section">
+          <div class="card-header">
+            <div class="card-title">Experiência profissional</div>
+            <span class="chip"><span class="chip-dot"></span> Histórico</span>
+          </div>
+          <div class="card-body">
+            <div class="timeline">
+
+              <div class="job">
+                <div class="job-header">
+                  <div>
+                    <div class="job-role">Assistente de Estoque</div>
+                    <div class="job-company">Setor automotivo · Belo Horizonte · MG</div>
+                  </div>
+                  <div class="job-meta">2026</div>
                 </div>
+                <ul>
+                  <li>Responsável pelo recebimento, conferência e registro de peças automotivas, mantendo o estoque organizado e atualizado.</li>
+                  <li>Atendia às demandas internas (oficina, vendas), separando materiais e apoiando o fluxo de trabalho diário.</li>
+                  <li>Propôs um novo padrão de sistema para rotas de transporte, visando maior eficiência e controle das entregas.</li>
+                  <li>Motivo da saída: desligamento a pedido, após divergências de visão com a gestão sobre melhorias propostas e mudança no ambiente de trabalho.</li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div>
+                    <div class="job-role">Assistente Administrativo</div>
+                    <div class="job-company">Empresa de assistência veicular</div>
+                  </div>
+                  <div class="job-meta">2023 – 2025</div>
+                </div>
+                <ul>
+                  <li>Atendimento direto a associados em situações de pane veicular, muitas vezes sob forte estresse emocional.</li>
+                  <li>Registro e acompanhamento de chamados em sistemas como Webassist e SGA, acionando guinchos e prestadores.</li>
+                  <li>Criação de manual para novos usuários dos sistemas, padronizando o uso das ferramentas e reduzindo dúvidas recorrentes.</li>
+                  <li>Atuação em casos críticos, como criança trancada em veículo, conciliando segurança, empatia e rapidez na solução.</li>
+                  <li>Motivo da saída: recorrentes atrasos de pagamento de salários, comprometendo o planejamento financeiro.</li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div>
+                    <div class="job-role">Auxiliar de Logística</div>
+                    <div class="job-company">Centro de distribuição farmacêutico</div>
+                  </div>
+                  <div class="job-meta">2021 – 2023</div>
+                </div>
+                <ul>
+                  <li>Controle de entrada e saída de mercadorias, garantindo acurácia de estoque e conformidade com procedimentos internos.</li>
+                  <li>Operação de sistema SAP para lançamento de notas, expedição e apoio à gestão de frota.</li>
+                  <li>Organização de horários e rotinas, atendendo simultaneamente demandas de operação e atualização de gráficos e indicadores.</li>
+                  <li>Motivo da saída: decisão de focar mais tempo em estudos e na graduação em Gestão de Tecnologia da Informação.</li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div>
+                    <div class="job-role">Auxiliar de Logística (E‑commerce)</div>
+                    <div class="job-company">Comércio eletrônico varejista</div>
+                  </div>
+                  <div class="job-meta">2018 – 2019</div>
+                </div>
+                <ul>
+                  <li>Gestão de inventário, reposição e armazenamento de produtos, integrando conferência física e sistêmica.</li>
+                  <li>Separação de pedidos, embalagem e apoio à expedição com foco em produtividade e prazos de entrega.</li>
+                  <li>Motivo da saída: baixa remuneração frente ao volume de trabalho, estoque de grande porte operado praticamente por um único colaborador e acúmulo de funções entre estoque e atividades administrativas.</li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div>
+                    <div class="job-role">Líder de Armazém / Líder de Logística</div>
+                    <div class="job-company">Operador logístico</div>
+                  </div>
+                  <div class="job-meta">2015</div>
+                </div>
+                <ul>
+                  <li>Coordenação de equipe de aproximadamente 18 colaboradores nas rotinas de recebimento, conferência, armazenagem, separação e expedição.</li>
+                  <li>Distribuição de tarefas, orientação de procedimentos, acompanhamento de produtividade e apoio a inventários.</li>
+                  <li>Foco em organização física do estoque, cumprimento de prazos de carga/descarga e qualidade na operação.</li>
+                  <li>Motivo da saída: encerramento do contrato ao término do período de experiência, em contexto de mudança de gestão e diretrizes.</li>
+                </ul>
+              </div>
+
+              <div class="job">
+                <div class="job-header">
+                  <div>
+                    <div class="job-role">Outras experiências</div>
+                    <div class="job-company">Primeiros empregos</div>
+                  </div>
+                  <div class="job-meta"></div>
+                </div>
+                <ul>
+                  <li>Designer em gráfica de bairro, com criação de artes, cartões e jornal local, além de apoio geral no atendimento.</li>
+                  <li>Serviços urbanos (varrição e coleta), atuando em limpeza pública e contribuindo para renda familiar desde cedo.</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- COLUNA LATERAL -->
+      <aside class="sidebar">
+        <section class="card">
+          <div class="card-header">
+            <div class="card-title">Formação</div>
+            <span class="chip"><span class="chip-dot"></span> Educação</span>
+          </div>
+          <div class="card-body">
+            <div class="section">
+              <strong>Graduação em Gestão de Tecnologia da Informação</strong><br />
+              <span class="muted">Em andamento</span>
+            </div>
+            <div class="section">
+              <strong>Certificação Google Project Management</strong><br />
+              <span class="muted">Coursera / Google</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card section">
+          <div class="card-header">
+            <div class="card-title">Certificações selecionadas</div>
+            <span class="chip"><span class="chip-dot"></span> Cursos</span>
+          </div>
+          <div class="card-body">
+            <ul class="cert-list">
+              <li><strong>Fundamentos da Transformação Digital, Mapeamento e Automação de Processos</strong> – ENAP</li>
+              <li><strong>Governança de TIC no Contexto da Transformação Digital</strong> – ENAP</li>
+              <li><strong>Inovando na Gestão de Projetos</strong> – ENAP</li>
+              <li><strong>Innovation Management in the Public Sector</strong> – ENAP</li>
+              <li><strong>Estudo Técnico Preliminar Avançado para Contratação de Soluções de TIC</strong> – ENAP</li>
+              <li><strong>Planos de Adaptação, Dados Espaciais e Indicadores para Análise Territorial</strong> – ENAP</li>
+              <li><strong>Soluções Preditivas Baseadas em Dados com uso de R e Python</strong> – ENAP</li>
+              <li><strong>Análise de Dados como Suporte à Tomada de Decisão</strong> – ENAP</li>
+              <li><strong>Microsoft Excel 2016 – Básico</strong></li>
+              <li><strong>Preparação para a Jornada Acadêmica e o Futuro Profissional</strong></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card section">
+          <div class="card-header">
+            <div class="card-title">Competências técnicas</div>
+            <span class="chip"><span class="chip-dot"></span> Ferramentas</span>
+          </div>
+          <div class="card-body">
+            <div class="grid-2">
+              <div>
+                <strong class="muted">Tecnologia & Dados</strong>
+                <div class="pill-list">
+                  <span class="pill-skill">Python (pandas básico)</span>
+                  <span class="pill-skill">R (noções de estatística/visualização)</span>
+                  <span class="pill-skill">SQL (consultas simples)</span>
+                  <span class="pill-skill">Power BI / Excel</span>
+                </div>
+              </div>
+              <div>
+                <strong class="muted">Sistemas & Plataformas</strong>
+                <div class="pill-list">
+                  <span class="pill-skill">SAP</span>
+                  <span class="pill-skill">Webassist</span>
+                  <span class="pill-skill">SGA</span>
+                  <span class="pill-skill">Ambientes em nuvem / Azure (noções)</span>
+                </div>
+              </div>
             </div>
 
             <div class="section">
-                <h2>Certificações selecionadas</h2>
-                <div class="line"></div>
-
-                <div class="cert">
-                    <span><strong>Governança de TIC no Contexto da Transformação Digital</strong></span>
-                    <span class="meta">Enap • Fev/2026 • 20h • Nota 93,75</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Inovando na Gestão de Projetos</strong></span>
-                    <span class="meta">Enap • Jan/2026 • 25h</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Fundamentos da Transformação Digital</strong></span>
-                    <span class="meta">Enap • Dez/2025 • 20h</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Soluções Preditivas com R e Python</strong></span>
-                    <span class="meta">Jan/2026</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Análise de Dados para Tomada de Decisão</strong></span>
-                    <span class="meta">Dez/2025</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Dados Espaciais e Indicadores para Análise Territorial</strong></span>
-                    <span class="meta">Jan/2026</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Introdução à IA no Azure</strong></span>
-                    <span class="meta">Microsoft • Jan/2026</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Proteja Aplicativos de Nuvem no Azure</strong></span>
-                    <span class="meta">Microsoft • Jan/2026 • 10h</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Administrando Banco de Dados</strong></span>
-                    <span class="meta">Fundação Bradesco • Fev/2026</span>
-                </div>
-                <div class="cert">
-                    <span><strong>Microsoft Excel 2016 - Básico</strong></span>
-                    <span class="meta">Fundação Bradesco • Fev/2026</span>
-                </div>
+              <strong class="muted">Gestão & Processos</strong>
+              <div class="pill-list">
+                <span class="pill-skill">Transformação Digital</span>
+                <span class="pill-skill">Mapeamento de Processos</span>
+                <span class="pill-skill">Melhoria Contínua</span>
+                <span class="pill-skill">Gestão de Projetos (ágil - noções)</span>
+              </div>
             </div>
+          </div>
+        </section>
 
-            <div class="section">
-                <h2>Indicadores pessoais</h2>
-                <div class="line"></div>
-                <div class="stat-grid">
-                    <div class="stat">
-                        <strong>7+</strong>
-                        Anos de experiência
-                    </div>
-                    <div class="stat">
-                        <strong>15+</strong>
-                        Certificações 2025/26
-                    </div>
-                    <div class="stat">
-                        <strong>73%</strong>
-                        Engajamento acadêmico
-                    </div>
-                    <div class="stat">
-                        <strong>80%</strong>
-                        Saúde física / conexão social
-                    </div>
-                </div>
-            </div>
+        <section class="card section">
+          <div class="card-header">
+            <div class="card-title">Pontos fortes</div>
+            <span class="chip"><span class="chip-dot"></span> Perfil</span>
+          </div>
+          <div class="card-body">
+            <ul class="cert-list">
+              <li>Visão de melhoria contínua e disposição para propor soluções de processo.</li>
+              <li>Resiliência e disciplina, com histórico de trabalho desde muito jovem.</li>
+              <li>Relacionamento humano, empatia com clientes em situação de estresse e foco em resolver o problema.</li>
+              <li>Organização para lidar com múltiplas demandas, prazos e diferentes gestores.</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+    </div>
 
-            <div class="section">
-                <h2>Informações adicionais</h2>
-                <div class="line"></div>
-                <div class="info-block">
-                    <strong>Idiomas</strong>
-                    Português (nativo), Espanhol (intermediário), Inglês (básico).
-                </div>
-                <div class="info-block">
-                    <strong>PCD</strong>
-                    Deficiência auditiva unilateral (CID H90.4).
-                </div>
-                <div class="info-block">
-                    <strong>Disponibilidade</strong>
-                    Imediata para Belo Horizonte, região metropolitana e formato híbrido/remoto.
-                </div>
-            </div>
-        </aside>
-    </main>
-</div>
+    <div class="footer-note">
+      Documento em HTML criado para visualização como currículo/portfólio profissional.
+    </div>
+  </div>
 </body>
 </html>
