@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#0c1711">
+<title>Admin | Cursos e certificados — Caique Vilela</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color-scheme:dark;--bg:#08100c;--panel:#122219;--border:#315341;--text:#edf8f0;--muted:#b4cbbb;--green:#50de9b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 0 0,#193d29,transparent 45%),var(--bg);color:var(--text);line-height:1.55}
+.wrap{max-width:1040px;margin:auto;padding:28px clamp(14px,3vw,28px) 70px}
+header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+header a{color:var(--green);text-decoration:none}h1{font-size:clamp(1.55rem,4vw,2.3rem);margin:5px 0 2px}h2{font-size:1.2rem;margin:0 0 10px}p{color:var(--muted)}
+.eyebrow{font-size:.75rem;letter-spacing:.16em;color:#7edda8;font-weight:800}
+.panel{border:1px solid var(--border);border-radius:18px;background:var(--panel);padding:clamp(18px,3vw,28px);margin:0 0 18px;box-shadow:0 16px 38px #0002}
+.panel[hidden],#workspace[hidden],#login[hidden]{display:none!important}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+label{font-size:.87rem;font-weight:700;display:grid;gap:6px;margin:0}
+input,select,textarea{width:100%;padding:12px 13px;min-width:0;border-radius:9px;border:1px solid #457057;background:#08150e;color:#f6fff8;font:inherit;font-size:.95rem}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid #93f6be;outline-offset:2px}
+input[type="checkbox"]{width:auto;accent-color:var(--green)}
+button{font:inherit;font-weight:750;border-radius:9px;border:1px solid transparent;padding:11px 15px;cursor:pointer;color:#052018;background:var(--green)}
+button:hover{filter:brightness(1.08)}button:disabled{opacity:.5;cursor:wait}
+button.secondary{color:#e8f9ee;background:#1b3525;border-color:#447559}
+button.danger{color:#ffd4d0;background:#482623;border-color:#8a4741}
+.help{font-size:.82rem;color:#b6cdbd}.help a{color:#83e5b2}.url-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;margin-bottom:14px}
+.notice{font-size:.84rem;padding:12px 14px;border:1px solid #486e51;border-radius:9px;background:#183523;color:#e5ffec;overflow-wrap:anywhere}
+.notice.error{background:#42231e;border-color:#8d4a43;color:#ffe5df}.notice:empty{display:none}
+hr{border:0;border-top:1px solid #31513e;margin:22px 0}
+.item{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:15px 0;border-bottom:1px solid #304b39}
+.item:last-child{border-bottom:0}.item strong{display:block;line-height:1.3}.item small{display:block;color:#b9d2c2;margin-top:6px}.item a{color:#79eab3}
+.item-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.small{font-size:.8rem;padding:7px 10px}code{color:#a6f3c4}
+@media(max-width:660px){.grid,.url-row{grid-template-columns:1fr}.item{align-items:start;flex-direction:column}.item-actions{justify-content:flex-start}button{width:100%}.item-actions button{width:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div><span class="eyebrow">ÁREA ADMINISTRATIVA · PRIVADA PARA PUBLICAÇÃO</span><h1>Cursos e certificados</h1><p>Cadastre por link ou imagem, revise os dados e publique diretamente no portfólio.</p></div><a href="./">← Ver portfólio público</a></header>
+<section id="login" class="panel">
+<h2>Entrar como administrador</h2>
+<p>O portfólio é hospedado no GitHub Pages. Para publicar sem expor uma senha no site, use um token do GitHub com acesso <strong>somente a este repositório</strong>. A credencial é mantida apenas na memória desta aba e não é salva no navegador nem no repositório.</p>
+<form id="login-form">
+<label>Token do GitHub (acesso ao repositório Caique-Vilela)<input id="github-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_..." required></label>
+<div class="row" style="margin-top:15px"><button id="login-submit" type="submit">Acessar meu painel</button><a class="help" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Criar token de acesso restrito ↗</a></div>
+<p class="help">No GitHub, escolha proprietário Galaduzbr → Only select repositories → Caique-Vilela → Repository permissions: Contents (Read and write). Token não é a senha da sua conta.</p>
+</form>
+<p class="notice" id="login-status" role="status"></p>
+</section>
+<div id="workspace" hidden>
+<section class="panel">
+<div class="row" style="justify-content:space-between"><h2>Nova certificação</h2><button type="button" class="secondary small" id="logout">Sair do painel</button></div>
+<p>Primeiro cole o link oficial. O sistema tenta identificar curso, emissor, data e ID; confira antes de publicar. Também aceita imagem do certificado para leitura automática do texto.</p>
+<div class="url-row"><label>Endereço do certificado
+<input id="lookup-url" type="url" placeholder="https://www.dmzlaunchpad.ca/certificates/...">
+</label><button id="lookup" type="button">Buscar informações</button></div>
+<div class="row" style="margin-bottom:14px">
+<label style="flex:1 1 270px">Ou ler certificado em imagem (JPG, PNG, WebP)
+<input id="image-file" type="file" accept="image/png,image/jpeg,image/webp"></label>
+<button type="button" class="secondary" id="ocr">Ler imagem</button></div>
+<div class="notice" id="lookup-status" role="status"></div><hr>
+<form id="course-form">
+<input id="editing-id" type="hidden">
+<div class="grid">
+<label>Nome do curso *<input id="name" required maxlength="200" placeholder="Nome completo do curso"></label>
+<label>Instituição emissora *<input id="provider" required maxlength="140" placeholder="Ex.: DMZ, ENAP, Google"></label>
+<label>Conclusão<input id="date" placeholder="29/10/2026" maxlength="50"></label>
+<label>Carga horária (se informada)<input id="hours" placeholder="Ex.: 20h" maxlength="50"></label>
+<label>Categoria<select id="category"><option>Empreendedorismo e inovação</option><option>Tecnologia e dados</option><option>Gestão e projetos</option><option>Transformação digital</option><option>Logística e operações</option><option>Outros</option></select></label>
+<label>ID da credencial<input id="certificate-id" maxlength="120" placeholder="Identificador público"></label>
+<label style="grid-column:1/-1">Link de verificação<input type="url" id="url" placeholder="https://..." maxlength="900"></label>
+</div>
+<label style="margin:16px 0;display:flex;align-items:center;gap:9px"><input type="checkbox" id="featured"> Destacar no início da seção de certificações</label>
+<div class="row"><button type="submit">Salvar e publicar no portfólio</button><button class="secondary" type="button" id="reset-form">Limpar formulário</button></div>
+</form>
+<p class="notice" id="publish-status" role="status"></p>
+</section>
+<section class="panel"><h2>Certificações publicadas <span id="count"></span></h2><p>Os dados ficam em <code>courses.json</code> no seu repositório. Editar ou remover aqui também atualiza a página pública.</p><div id="items"></div></section>
+</div></div>
+<script>
+(()=>{'use strict';
+const repo='Galaduzbr/Caique-Vilela',base='https://api.github.com/repos/'+repo+'/contents/courses.json';
+const $=id=>document.getElementById(id), fields=['name','provider','date','hours','category','url'];
+let token='',courses=[],sha='',fileUpdating=false;
+const status=(id,msg,error=false)=>{let el=$(id);el.textContent=msg;el.classList.toggle('error',error)};
+const headers=()=>({'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
+const decodeBase64Utf8=s=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')),x=>x.charCodeAt(0)));
+const encodeBase64Utf8=s=>{let b=new TextEncoder().encode(s),a='';for(let i=0;i<b.length;i+=8192)a+=String.fromCharCode(...b.subarray(i,i+8192));return btoa(a)};
+const api=async(url,options={})=>{let res=await fetch(url,{...options,headers:{...headers(),...(options.headers||{})}}),data=await res.json().catch(()=>({}));if(!res.ok)throw Error(data.message||('Erro HTTP '+res.status));return data};
+const uid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'course-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+const clean=s=>String(s||'').trim();
+const safeUrl=s=>{try{let u=new URL(clean(s));return u.protocol==='https:'?u.href:''}catch{return''}};
+const escapeHtml=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+function readForm(){let c={id:$('editing-id').value||uid()};fields.forEach(k=>c[k]=clean($(k).value));c.certificate_id=clean($('certificate-id').value);c.featured=$('featured').checked;c.url=safeUrl(c.url);if(!c.name||!c.provider)throw Error('Informe o nome e a instituição.');return c}
+function fillForm(c){$('editing-id').value=c.id||'';fields.forEach(k=>$(k).value=c[k]||'');$('certificate-id').value=c.certificate_id||'';$('featured').checked=!!c.featured;$('name').focus()}
+function resetForm(){$('course-form').reset();$('editing-id').value='';$('lookup-url').value='';$('image-file').value='';status('lookup-status','')}
+function render(){let items=$('items');$('count').textContent='('+courses.length+')';items.replaceChildren();for(const c of courses){let box=document.createElement('div');box.className='item';let info=document.createElement('div');let title=document.createElement('strong');title.textContent=c.name;info.append(title);let subtitle=document.createElement('small');subtitle.textContent=[c.provider,c.date,c.hours,c.certificate_id?'ID: '+c.certificate_id:''].filter(Boolean).join(' · ');info.append(subtitle);if(safeUrl(c.url)){let link=document.createElement('a');link.href=c.url;link.textContent='Ver credencial ↗';link.target='_blank';link.rel='noopener noreferrer';info.append(link)}
+let actions=document.createElement('div');actions.className='item-actions';let edit=document.createElement('button');edit.type='button';edit.className='secondary small';edit.textContent='Editar';edit.onclick=()=>{fillForm(c);window.scrollTo({top:0,behavior:'smooth'})};let del=document.createElement('button');del.type='button';del.className='danger small';del.textContent='Remover';del.onclick=async()=>{if(!confirm('Remover '+c.name+' do portfólio público?'))return;let next=courses.filter(x=>x.id!==c.id);await publish(next)};actions.append(edit,del);box.append(info,actions);items.append(box)}}
+async function load(){const file=await api(base+'?ref=main');sha=file.sha;let obj=JSON.parse(decodeBase64Utf8(file.content));courses=Array.isArray(obj.courses)?obj.courses:[];render()}
+async function publish(next){if(fileUpdating)return;fileUpdating=true;let button=$('course-form').querySelector('[type=submit]');button.disabled=true;status('publish-status','Publicando no GitHub...');try{let body={message:'docs(portfolio): atualizar cursos e certificações pelo painel',content:encodeBase64Utf8(JSON.stringify({version:1,updated_at:new Date().toISOString(),courses:next},null,2)+'\n'),branch:'main',sha};let response=await api(base,{method:'PUT',body:JSON.stringify(body),headers:{'Content-Type':'application/json'}});sha=response.content.sha;courses=next;render();resetForm();status('publish-status','Publicado no repositório com sucesso. O GitHub Pages poderá levar alguns minutos para atualizar.')}catch(e){status('publish-status','Não foi possível publicar: '+e.message,true);if(/does not match|sha|conflict/i.test(e.message))try{await load()}catch{}}finally{fileUpdating=false;button.disabled=false}}
+$('login-form').addEventListener('submit',async e=>{e.preventDefault();const value=$('github-token').value.trim();if(!value)return;$('login-submit').disabled=true;token=value;status('login-status','Validando acesso...');try{let who=await api('https://api.github.com/user');if(who.login.toLowerCase()!=='galaduzbr')throw Error('Este painel só permite publicar a partir da conta Galaduzbr.');await load();$('github-token').value='';$('login').hidden=true;$('workspace').hidden=false}catch(err){token='';status('login-status','Não foi possível acessar: '+err.message,true)}finally{$('login-submit').disabled=false}});
+$('logout').onclick=()=>{token='';sha='';courses=[];$('workspace').hidden=true;$('login').hidden=false;status('login-status','');$('github-token').value=''};
+$('reset-form').onclick=resetForm;
+$('course-form').addEventListener('submit',async e=>{e.preventDefault();try{let c=readForm();await publish([...courses.filter(x=>x.id!==c.id),c])}catch(err){status('publish-status',err.message,true)}});
+function getDate(text){let iso=text.match(/\b(?:20\d{2})[-/](?:0?[1-9]|1[0-2])[-/](?:[0-2]?\d|3[01])\b/);if(iso)return iso[0];let br=text.match(/\b(?:[0-2]?\d|3[01])\/(?:0?\d|1[0-2])\/20\d{2}\b/);if(br)return br[0];let en=text.match(/\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},?\s+20\d{2}\b/i);return en?en[0]:''}
+function formatName(text){return clean(text).replace(/^(certificate of completion|certificate|verify certificate|credential)\s*[-:|]\s*/i,'').replace(/\s+[-|]\s+(DMZ|ENAP|Coursera|Udemy|Google).*$/i,'').slice(0,200)}
+function fromText(text,url,isHtml=false){let doc=isHtml?new DOMParser().parseFromString(text,'text/html'):null;let title=doc?.querySelector('meta[property="og:title"]')?.content||doc?.querySelector('h1')?.textContent||doc?.title||'',description=doc?.querySelector('meta[name="description"]')?.content||'';let raw=doc?.body?.innerText||doc?.body?.textContent||text,joined=[title,description,raw].join('\n');let lines=joined.split(/\n/).map(x=>clean(x)).filter(Boolean);
+let host=new URL(url).hostname.replace(/^www\./,'');let provider=/dmzlaunchpad\.ca/.test(host)?'DMZ':/escolavirtual\.gov\.br|enap\.gov\.br/.test(host)?'ENAP':/coursera\.org/.test(host)?'Coursera':/credly\.com/.test(host)?'Credly':/fundacaobradesco/.test(host)?'Fundação Bradesco':host;
+let name=formatName(title);let courseMatch=joined.match(/(?:has completed all requirements of|course title|course name|curso conclu[ií]do|certified in|certificate for)\s*[:\r\n]*\s*([^\r\n]{5,180})/i);
+if(courseMatch)name=formatName(courseMatch[1]);if(!name||/^(DMZ|Launchpad|Home|Certificates?)/i.test(name)){let match=lines.find(x=>/Launchpad 2\.0|From Idea to Launch|gestão|management|data analysis|tecnologia|fundamentos/i.test(x)&&x.length<150);if(match)name=formatName(match)}
+let id=new URL(url).pathname.split('/').filter(Boolean).at(-1)||'';let date=getDate(joined);let hours=joined.match(/\b\d{1,4}\s*(?:h|hours?|horas?)\b/i)?.[0]||'';
+let c={name,provider,date,hours,category:'Outros',url,certificate_id:/^[a-z0-9_-]{6,80}$/i.test(id)?id:'',featured:false};
+if(/dmzlaunchpad\.ca/.test(host))c.category='Empreendedorismo e inovação';
+return c}
+function recognizedDmz(url){let match=url.match(/^https:\/\/(?:www\.)?dmzlaunchpad\.ca\/certificates\/urtcehhs6l\/?$/i);return match?{name:'From Idea to Launch: Launchpad 2.0',provider:'DMZ × Desjardins',date:'2026-10-29',hours:'',category:'Empreendedorismo e inovação',url,certificate_id:'urtcehhs6l',featured:true}:null}
+async function timedFetch(url,ms){let c=new AbortController(),timer=setTimeout(()=>c.abort(),ms);try{let resp=await fetch(url,{signal:c.signal,credentials:'omit',referrerPolicy:'no-referrer'});if(!resp.ok)throw Error('HTTP '+resp.status);return await resp.text()}finally{clearTimeout(timer)}}
+$('lookup').onclick=async()=>{let url=safeUrl($('lookup-url').value);if(!url){status('lookup-status','Cole um endereço HTTPS válido.',true);return}let button=$('lookup');button.disabled=true;status('lookup-status','Consultando informações do certificado...');let known=recognizedDmz(url);if(known){fillForm(known);status('lookup-status','Informações da credencial DMZ reconhecidas e preenchidas. Confira e clique em Salvar e publicar.');button.disabled=false;return}
+try{let result;try{let html=await timedFetch(url,6500);result=fromText(html,url,true)}catch{let reader='https://r.jina.ai/'+url;let text=await timedFetch(reader,11000);result=fromText(text,url,false)}if(!result.name||result.name.length<5){result.name='';status('lookup-status','Link consultado, mas o site não forneceu o nome do curso. Preencha apenas os campos ausentes.',true)}else status('lookup-status','Informações extraídas do endereço. Confira os dados antes de publicar.');fillForm({...result,id:$('editing-id').value});}catch(err){fillForm({url,provider:new URL(url).hostname.replace(/^www\./,'')});status('lookup-status','Este emissor não liberou leitura automática (CORS ou bloqueio). O link foi preenchido; complete os campos ausentes. '+err.message,true)}finally{button.disabled=false}};
+function fromOCR(text){let lines=text.split(/\n/).map(clean).filter(x=>x.length>3);let course=lines.find(x=>/From Idea to Launch|Launchpad|gestão|management|fundamentos|data|curso de/i.test(x)&&x.length<190)||'';let provider=/DMZ/i.test(text)?'DMZ':/ENAP/i.test(text)?'ENAP':/Google/i.test(text)?'Google':/Desjardins/i.test(text)?'Desjardins':'';return {name:course,provider,date:getDate(text),hours:text.match(/\b\d+\s*(?:hours?|horas?|h)\b/i)?.[0]||''}}
+$('ocr').onclick=async()=>{let f=$('image-file').files[0];if(!f){status('lookup-status','Selecione uma imagem JPG, PNG ou WebP.',true);return}if(f.size>12000000){status('lookup-status','Use uma imagem com até 12 MB.',true);return}let btn=$('ocr');btn.disabled=true;status('lookup-status','Carregando reconhecimento de texto e analisando imagem...');try{if(!window.Tesseract){await new Promise((resolve,reject)=>{let script=document.createElement('script');script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';script.onload=resolve;script.onerror=()=>reject(Error('Biblioteca de leitura de imagens indisponível'));document.head.append(script)})}let result=await window.Tesseract.recognize(f,'eng+por');let fields=fromOCR(result.data.text);let old=readUnvalidated();fillForm({...old,...Object.fromEntries(Object.entries(fields).filter(([k,v])=>v))});status('lookup-status','Texto extraído da imagem. Revise os campos e publique. A imagem não será enviada ao GitHub.')}catch(e){status('lookup-status','Falha na leitura da imagem: '+e.message,true)}finally{btn.disabled=false}};
+function readUnvalidated(){let c={id:$('editing-id').value};fields.forEach(k=>c[k]=$(k).value);c.certificate_id=$('certificate-id').value;c.featured=$('featured').checked;return c}
+})();
+</script>
+</body></html>
