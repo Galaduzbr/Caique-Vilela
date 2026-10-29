@@ -313,6 +313,25 @@
     .resume-actions button{background:#38bdf8;color:#07111e;border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer}
     .resume-actions button:hover{background:#7dd3fc}
     @media print { @page{size:A4;margin:13mm}html,body{background:#fff!important;color:#172334!important;font-size:10pt!important} .page{margin:0;max-width:none;padding:0}.resume-actions{display:none!important}.layout{display:block!important}.top-bar{display:block!important}.contact{text-align:left!important;margin-top:10px}.card,.job{background:#fff!important;box-shadow:none!important;border:1px solid #d6dde5!important;color:#172334!important;break-inside:avoid;page-break-inside:avoid;margin-bottom:10px}.card::before{display:none!important}.card-body,.card-title,.job-role,.job-company,.job-meta,.muted,.cert-list,.tag,.pill,.pill-skill,.chip,.title{color:#172334!important}.pill,.tag,.pill-skill,.chip{border-color:#ccd5df!important;background:#fff!important}.sidebar{display:block!important}.footer-note{color:#555!important}a{color:#185c8c!important}}
+
+/* Tech Advisor original identity — dark graphite + green, mobile-first */
+:root{--bg:#07110d;--bg-alt:#050a08;--card:#0b1711;--accent:#38d996;--accent-soft:rgba(56,217,150,.13);--text:#ecf8f1;--muted:#b1c8b9;--border:#254735;--tag:#10261a;--tag-border:#315943;--shadow-soft:0 12px 35px rgba(0,0,0,.3);--shadow-card:0 10px 30px rgba(0,0,0,.24)}
+body{background:radial-gradient(circle at 10% 0%,#133d29 0%,#08130d 42%,#030806 100%);overflow-x:hidden}
+.page{width:min(100%,1100px);margin:24px auto;padding:0 clamp(12px,3vw,24px) 48px}
+.layout{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr)}
+.layout>* , .top-bar>*, .card,.card-body,.job-header>*{min-width:0;max-width:100%}
+.card{background:linear-gradient(145deg,rgba(24,63,42,.9),rgba(7,19,12,.96));border-color:#28513a;box-shadow:var(--shadow-card)}
+.card::before{background:radial-gradient(circle at top right,rgba(56,217,150,.08),transparent 65%)}
+.contact a,.card a{color:var(--accent)}
+.pill,.chip,.tag,.pill-skill{overflow-wrap:anywhere}
+.name{letter-spacing:.035em;line-height:1.13;overflow-wrap:break-word}
+.title{letter-spacing:.12em;line-height:1.4}
+.job-header{flex-wrap:wrap;gap:8px}
+.job-meta{white-space:normal}
+.resume-actions button{background:#38d996!important;color:#052015!important}
+@media(max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.sidebar{order:0}}
+@media(max-width:640px){html{font-size:15px}.page{margin:0 auto;padding:12px 12px 36px}.top-bar{flex-direction:column;align-items:stretch;gap:12px}.contact{text-align:left;overflow-wrap:anywhere}.name{font-size:clamp(1.45rem,7vw,2rem)}.title{font-size:.8rem;letter-spacing:.08em}.layout{gap:14px}.card{padding:16px 14px;border-radius:12px}.card-header{flex-wrap:wrap;gap:8px}.card-title{letter-spacing:.08em;line-height:1.4}.pill-row{gap:6px}.pill{max-width:100%;white-space:normal}.resume-actions{display:flex;flex-wrap:wrap;gap:8px}.resume-actions button,.resume-actions a{max-width:100%;white-space:normal}.grid-2{grid-template-columns:minmax(0,1fr)}}
+@media print{body{background:white!important}.card{box-shadow:none!important;background:white!important}.page{margin:0;padding:0}}
 </style>
 </head>
 <body>
@@ -326,7 +345,7 @@
             <span class="pill-dot"></span>
             Belo Horizonte · MG · Brasil
           </span>
-          <span class="pill">Auxiliar de TI na Avanço S/A</span>
+          <span class="pill">Experiência em TI · disponível para oportunidades</span>
           <span class="pill">Transição para Análise de Dados</span>
         </div>
       </div>
@@ -355,7 +374,7 @@
           <div class="card-body">
             <p>
               Profissional com experiência em tecnologia da informação, administração e logística.
-              Atualmente, atua como Auxiliar de TI na Avanço S/A, prestando suporte aos usuários,
+              Atuou como Auxiliar de TI na Avanço S/A, prestando suporte aos usuários,
               acompanhando demandas e contribuindo para a organização dos processos e informações do setor.
             </p>
             <p class="muted">
@@ -403,7 +422,7 @@
                     <div class="job-role">Auxiliar de TI</div>
                     <div class="job-company">Avanço S/A · Belo Horizonte · MG</div>
                   </div>
-                  <div class="job-meta">Ago 2026 – Atual</div>
+                  <div class="job-meta">Ago 2026 – Out 2026</div>
                 </div>
                 <ul>
                   <li>Suporte às rotinas de tecnologia da informação e atendimento às demandas dos usuários.</li>
