@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "updated_at": "2026-10-29",
+  "courses": [
+    {
+      "id": "dmz-urtcehhs6l",
+      "name": "From Idea to Launch: Launchpad 2.0",
+      "provider": "DMZ × Desjardins",
+      "date": "2026-10-29",
+      "hours": "",
+      "category": "Empreendedorismo e inovação",
+      "url": "https://www.dmzlaunchpad.ca/certificates/urtcehhs6l",
+      "certificate_id": "urtcehhs6l",
+      "featured": true
+    }
+  ]
+}
