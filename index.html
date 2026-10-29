@@ -748,7 +748,7 @@ function render(){
 }
 render();
 new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-fetch('./courses.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catálogo indisponível');return r.json()}).then(data=>{
+fetch('https://hzkvllyjztwcbewnvdie.supabase.co/functions/v1/portfolio-admin/courses',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catálogo indisponível');return r.json()}).catch(()=>fetch('./courses.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Backup indisponível');return r.json()})).then(data=>{
   if(!Array.isArray(data.courses))throw Error('Formato de catálogo inválido');
   courses=data.courses.filter(c=>c&&typeof c.name==='string'&&c.name.trim()&&typeof c.provider==='string'&&c.provider.trim());
   render();
