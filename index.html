@@ -400,6 +400,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #b4
 @media(max-width:700px){.page{padding:12px 12px 35px}.hero{padding:24px 20px;border-radius:17px}.name{font-size:clamp(1.85rem,8vw,2.5rem)}.hero-summary{font-size:.94rem}.contact{grid-template-columns:1fr;gap:9px}.portfolio-toolbar{align-items:stretch}.cv-language{flex-wrap:wrap}.cv-language span{width:100%}.cv-language button{flex:1}.resume-actions{width:100%}.resume-actions button{width:100%}.credentials{grid-template-columns:1fr;padding:19px;gap:13px}.credential-items{grid-template-columns:1fr}.card{padding:19px 16px}.card-title{letter-spacing:.06em}.layout{gap:15px}}
 @media print{.page{width:100%!important;max-width:none!important;padding:0!important}.hero{background:white!important;color:#172c21!important;border:none!important;padding:0 0 9mm!important;display:block!important;margin:0!important}.hero::after,.hero-summary,.portfolio-toolbar{display:none!important}.credentials{display:block!important;background:white!important;border:1px solid #d5e1d8!important;padding:10px!important;margin:0 0 6mm!important;break-inside:avoid!important}.credentials h2,.credentials-kicker,.credential-card strong{color:#172c21!important}.credentials p{color:#405447!important}.credential-items{display:block!important}.credential-card{display:block!important;background:white!important;border:0!important;padding:3px 0!important}.credential-icon{display:none!important}.credential-card a{color:#185c40!important}.name{font-size:21pt!important;letter-spacing:0!important;color:#172c21!important}.title,.eyebrow{color:#294533!important}.contact{display:block!important;border:none!important;background:none!important;padding:0!important;margin-top:4mm!important}.contact a{color:#172c21!important;margin-right:8px}.layout{display:block!important}#cv-international:not([hidden]){display:block!important}.card,.job{background:white!important;color:#16281d!important;border:1px solid #d5e1d8!important;box-shadow:none!important;break-inside:avoid!important}.card-body,.card-title,.chip,.muted,.job-company,.job-meta,.tag,.pill-skill{color:#16281d!important}.tag,.pill-skill{background:white!important;border-color:#c8d6cc!important}main .card+.card,.sidebar .card+.card,.card.section{margin-top:7px!important}.job{padding:8px 10px!important;margin:6px 0!important}.cert-list li{border-color:#e0e8e3!important}.more-certs summary{display:none!important}.more-certs .cert-list{display:none!important}a{color:#185c40!important}.footer-note{display:none!important}}
 
+
+/* Acesso discreto e permanente ao painel, visível sem interferir no currículo. */
+.portfolio-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.admin-access{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:43px;padding:9px 14px;border:1px solid #42604d;border-radius:10px;background:#12221a;color:#d5e8da!important;text-decoration:none;font-size:.84rem;font-weight:700}
+.admin-access:hover{border-color:#79d6a2;background:#203b2b;color:#fff!important}
+@media(max-width:700px){.portfolio-actions{width:100%}.portfolio-actions .resume-actions{flex:1}.portfolio-actions .resume-actions button{width:100%}.admin-access{flex:1;min-width:120px}}
+@media print{.portfolio-actions,.admin-access{display:none!important}}
 </style>
 </head>
 <body>
@@ -432,8 +439,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #b4
         <button type="button" data-cv-lang="es" aria-pressed="false">🇪🇸 Español</button>
         <button type="button" data-cv-lang="en" aria-pressed="false">🇬🇧 English</button>
       </div>
-      <div class="resume-actions">
-        <button type="button" id="salvar-pdf" onclick="window.print()">↓ Salvar PDF</button>
+      <div class="portfolio-actions">
+        <div class="resume-actions"><button type="button" id="salvar-pdf" onclick="window.print()">↓ Salvar PDF</button></div>
+        <a class="admin-access" href="./admin.html" aria-label="Acessar painel administrativo de cursos e certificados" title="Acesso do proprietário ao painel de cursos">⚙ Admin</a>
       </div>
     </div>
     <section class="credentials" aria-labelledby="credentials-title">
