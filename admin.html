@@ -37,12 +37,14 @@ hr{border:0;border-top:1px solid #31513e;margin:22px 0}
 <div class="wrap">
 <header><div><span class="eyebrow">ÁREA ADMINISTRATIVA · PRIVADA PARA PUBLICAÇÃO</span><h1>Cursos e certificados</h1><p>Cadastre por link ou imagem, revise os dados e publique diretamente no portfólio.</p></div><a href="./">← Ver portfólio público</a></header>
 <section id="login" class="panel">
-<h2>Entrar como administrador</h2>
-<p>O portfólio é hospedado no GitHub Pages. Para publicar sem expor uma senha no site, use um token do GitHub com acesso <strong>somente a este repositório</strong>. A credencial é mantida apenas na memória desta aba e não é salva no navegador nem no repositório.</p>
+<h2>Acesso administrativo</h2>
+<p>Entre com seu nome de usuário e senha para gerenciar cursos e certificados. Apenas o administrador pode publicar alterações.</p>
 <form id="login-form">
-<label>Token do GitHub (acesso ao repositório Caique-Vilela)<input id="github-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_..." required></label>
-<div class="row" style="margin-top:15px"><button id="login-submit" type="submit">Acessar meu painel</button><a class="help" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">Criar token de acesso restrito ↗</a></div>
-<p class="help">No GitHub, escolha proprietário Galaduzbr → Only select repositories → Caique-Vilela → Repository permissions: Contents (Read and write). Token não é a senha da sua conta.</p>
+<div class="grid">
+<label>Usuário<input id="admin-user" name="username" type="text" value="Caique" autocomplete="username" maxlength="80" required></label>
+<label>Senha<input id="admin-password" name="password" type="password" autocomplete="current-password" required></label>
+</div>
+<div class="row" style="margin-top:15px"><button id="login-submit" type="submit">Entrar no painel</button></div>
 </form>
 <p class="notice" id="login-status" role="status"></p>
 </section>
@@ -74,31 +76,52 @@ hr{border:0;border-top:1px solid #31513e;margin:22px 0}
 </form>
 <p class="notice" id="publish-status" role="status"></p>
 </section>
-<section class="panel"><h2>Certificações publicadas <span id="count"></span></h2><p>Os dados ficam em <code>courses.json</code> no seu repositório. Editar ou remover aqui também atualiza a página pública.</p><div id="items"></div></section>
+<section class="panel"><h2>Certificações publicadas <span id="count"></span></h2><p>Adicionar, editar ou remover aqui atualiza automaticamente a seção de cursos do portfólio público.</p><div id="items"></div></section>
 </div></div>
 <script>
 (()=>{'use strict';
-const repo='Galaduzbr/Caique-Vilela',base='https://api.github.com/repos/'+repo+'/contents/courses.json';
-const $=id=>document.getElementById(id), fields=['name','provider','date','hours','category','url'];
-let token='',courses=[],sha='',fileUpdating=false;
+const base='https://hzkvllyjztwcbewnvdie.supabase.co/functions/v1/portfolio-admin';
+const $=id=>document.getElementById(id),fields=['name','provider','date','hours','category','url'];
+let token='',courses=[],fileUpdating=false;
 const status=(id,msg,error=false)=>{let el=$(id);el.textContent=msg;el.classList.toggle('error',error)};
-const headers=()=>({'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
-const decodeBase64Utf8=s=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')),x=>x.charCodeAt(0)));
-const encodeBase64Utf8=s=>{let b=new TextEncoder().encode(s),a='';for(let i=0;i<b.length;i+=8192)a+=String.fromCharCode(...b.subarray(i,i+8192));return btoa(a)};
-const api=async(url,options={})=>{let res=await fetch(url,{...options,headers:{...headers(),...(options.headers||{})}}),data=await res.json().catch(()=>({}));if(!res.ok)throw Error(data.message||('Erro HTTP '+res.status));return data};
+const api=async(path,options={})=>{
+  const response=await fetch(base+path,{...options,cache:'no-store',headers:{
+  'Content-Type':'application/json',...(token?{'Authorization':'Bearer '+token}:{}),...(options.headers||{})}});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw Error(data.error||('Erro de comunicação: '+response.status));
+  return data;
+};
 const uid=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'course-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
 const clean=s=>String(s||'').trim();
 const safeUrl=s=>{try{let u=new URL(clean(s));return u.protocol==='https:'?u.href:''}catch{return''}};
-const escapeHtml=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 function readForm(){let c={id:$('editing-id').value||uid()};fields.forEach(k=>c[k]=clean($(k).value));c.certificate_id=clean($('certificate-id').value);c.url=safeUrl(c.url);if(!c.name||!c.provider)throw Error('Informe o nome e a instituição.');return c}
 function fillForm(c){$('editing-id').value=c.id||'';fields.forEach(k=>$(k).value=c[k]||'');$('certificate-id').value=c.certificate_id||'';$('name').focus()}
 function resetForm(){$('course-form').reset();$('editing-id').value='';$('lookup-url').value='';$('image-file').value='';status('lookup-status','')}
-function render(){let items=$('items');$('count').textContent='('+courses.length+')';items.replaceChildren();for(const c of courses){let box=document.createElement('div');box.className='item';let info=document.createElement('div');let title=document.createElement('strong');title.textContent=c.name;info.append(title);let subtitle=document.createElement('small');subtitle.textContent=[c.provider,c.date,c.hours,c.certificate_id?'ID: '+c.certificate_id:''].filter(Boolean).join(' · ');info.append(subtitle);if(safeUrl(c.url)){let link=document.createElement('a');link.href=c.url;link.textContent='Ver credencial ↗';link.target='_blank';link.rel='noopener noreferrer';info.append(link)}
-let actions=document.createElement('div');actions.className='item-actions';let edit=document.createElement('button');edit.type='button';edit.className='secondary small';edit.textContent='Editar';edit.onclick=()=>{fillForm(c);window.scrollTo({top:0,behavior:'smooth'})};let del=document.createElement('button');del.type='button';del.className='danger small';del.textContent='Remover';del.onclick=async()=>{if(!confirm('Remover '+c.name+' do portfólio público?'))return;let next=courses.filter(x=>x.id!==c.id);await publish(next)};actions.append(edit,del);box.append(info,actions);items.append(box)}}
-async function load(){const file=await api(base+'?ref=main');sha=file.sha;let obj=JSON.parse(decodeBase64Utf8(file.content));courses=Array.isArray(obj.courses)?obj.courses:[];render()}
-async function publish(next){if(fileUpdating)return;fileUpdating=true;let button=$('course-form').querySelector('[type=submit]');button.disabled=true;status('publish-status','Publicando no GitHub...');try{let body={message:'docs(portfolio): atualizar cursos e certificações pelo painel',content:encodeBase64Utf8(JSON.stringify({version:1,updated_at:new Date().toISOString(),courses:next},null,2)+'\n'),branch:'main',sha};let response=await api(base,{method:'PUT',body:JSON.stringify(body),headers:{'Content-Type':'application/json'}});sha=response.content.sha;courses=next;render();resetForm();status('publish-status','Publicado no repositório com sucesso. O GitHub Pages poderá levar alguns minutos para atualizar.')}catch(e){status('publish-status','Não foi possível publicar: '+e.message,true);if(/does not match|sha|conflict/i.test(e.message))try{await load()}catch{}}finally{fileUpdating=false;button.disabled=false}}
-$('login-form').addEventListener('submit',async e=>{e.preventDefault();const value=$('github-token').value.trim();if(!value)return;$('login-submit').disabled=true;token=value;status('login-status','Validando acesso...');try{let who=await api('https://api.github.com/user');if(who.login.toLowerCase()!=='galaduzbr')throw Error('Este painel só permite publicar a partir da conta Galaduzbr.');await load();$('github-token').value='';$('login').hidden=true;$('workspace').hidden=false}catch(err){token='';status('login-status','Não foi possível acessar: '+err.message,true)}finally{$('login-submit').disabled=false}});
-$('logout').onclick=()=>{token='';sha='';courses=[];$('workspace').hidden=true;$('login').hidden=false;status('login-status','');$('github-token').value=''};
+function render(){let items=$('items');$('count').textContent='('+courses.length+')';items.replaceChildren();for(const c of courses){let box=document.createElement('div');box.className='item';let info=document.createElement('div');let title=document.createElement('strong');title.textContent=c.name;info.append(title);let subtitle=document.createElement('small');subtitle.textContent=[c.provider,c.date,c.hours,c.certificate_id?'ID: '+c.certificate_id:''].filter(Boolean).join(' · ');info.append(subtitle);if(safeUrl(c.url)){let link=document.createElement('a');link.href=c.url;link.textContent='Ver certificado ↗';link.target='_blank';link.rel='noopener noreferrer';info.append(link)}let actions=document.createElement('div');actions.className='item-actions';let edit=document.createElement('button');edit.type='button';edit.className='secondary small';edit.textContent='Editar';edit.onclick=()=>{fillForm(c);window.scrollTo({top:0,behavior:'smooth'})};let del=document.createElement('button');del.type='button';del.className='danger small';del.textContent='Remover';del.onclick=async()=>{if(!confirm('Remover '+c.name+' do portfólio público?'))return;await publish(courses.filter(x=>x.id!==c.id))};actions.append(edit,del);box.append(info,actions);items.append(box)}}
+async function load(){const data=await api('/admin');courses=Array.isArray(data.courses)?data.courses:[];render()}
+async function publish(next){
+ if(fileUpdating)return;
+ fileUpdating=true;let button=$('course-form').querySelector('[type=submit]');button.disabled=true;
+ status('publish-status','Publicando cursos...');
+ try{
+  const response=await api('/save',{method:'POST',body:JSON.stringify({courses:next})});
+  courses=response.courses||next;render();resetForm();
+  status('publish-status','Cursos publicados com sucesso! O portfólio já pode carregar os dados atualizados.');
+ }catch(e){status('publish-status','Não foi possível publicar: '+e.message,true)}
+ finally{fileUpdating=false;button.disabled=false}
+}
+$('login-form').addEventListener('submit',async e=>{
+ e.preventDefault();const username=$('admin-user').value.trim(),password=$('admin-password').value;
+ if(!username||!password)return;
+ $('login-submit').disabled=true;status('login-status','Verificando usuário e senha...');
+ try{
+   const response=await api('/login',{method:'POST',body:JSON.stringify({username,password})});
+   token=response.token;$('admin-password').value='';
+   await load();$('login').hidden=true;$('workspace').hidden=false;
+ }catch(err){token='';status('login-status',err.message,true)}
+ finally{$('admin-password').value='';$('login-submit').disabled=false}
+});
+$('logout').onclick=async()=>{let session=token;token='';courses=[];$('workspace').hidden=true;$('login').hidden=false;status('login-status','');$('admin-password').value='';if(session)try{await fetch(base+'/logout',{method:'POST',headers:{Authorization:'Bearer '+session}})}catch{}};
 $('reset-form').onclick=resetForm;
 $('course-form').addEventListener('submit',async e=>{e.preventDefault();try{let c=readForm();await publish([...courses.filter(x=>x.id!==c.id),c])}catch(err){status('publish-status',err.message,true)}});
 function getDate(text){let iso=text.match(/\b(?:20\d{2})[-/](?:0?[1-9]|1[0-2])[-/](?:[0-2]?\d|3[01])\b/);if(iso)return iso[0];let br=text.match(/\b(?:[0-2]?\d|3[01])\/(?:0?\d|1[0-2])\/20\d{2}\b/);if(br)return br[0];let en=text.match(/\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},?\s+20\d{2}\b/i);return en?en[0]:''}
